@@ -1,3 +1,5 @@
+"""Script LLM to extract data for each company from the internet."""
+
 import csv
 import json
 import time
@@ -10,16 +12,9 @@ from google.genai import types
 client = genai.Client()
 
 # # 1. The Researcher: Needs web search capabilities and good reasoning
-# RESEARCH_MODEL = "gemini-3.5-flash"
-
-# # 2. The Extractor: Only needs to read plain text and output JSON. 
-# # Using Flash-Lite here significantly reduces your API costs.
-# EXTRACTOR_MODEL = "gemini-3.5-flash-lite"
-
 RESEARCH_MODEL = "gemini-3.5-flash-lite"
 
 # 2. The Extractor: Only needs to read plain text and output JSON. 
-# Using Flash-Lite here significantly reduces your API costs.
 EXTRACTOR_MODEL = "gemini-3.5-flash-lite"
 
 # Pydantic schema using float types and explicit units
@@ -139,8 +134,6 @@ def process_companies():
             # Pause to respect rate limits. Two API calls are made per iteration now.
             time.sleep(1)
             
-            # Remove or comment out the line below when you are ready to process all rows
-            # raise ValueError("stop here")
             
 if __name__ == "__main__":
     process_companies()

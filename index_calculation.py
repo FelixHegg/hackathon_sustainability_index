@@ -1,3 +1,5 @@
+"""Based on the extracted data calculate the sustainability index."""
+
 import pandas as pd
 import numpy as np
 
