@@ -36,8 +36,8 @@ class CompanyMetrics(BaseModel):
     )
 
 def process_companies():
-    input_filename = "sp500_remaining.csv"
-    output_filename = "sp500_metrics_remaining.csv"
+    input_filename = "sp500.csv"
+    output_filename = "sp500_metrics.csv"
     
     # Read the input companies
     with open(input_filename, mode="r", encoding="utf-8") as infile:
