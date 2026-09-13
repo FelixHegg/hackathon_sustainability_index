@@ -20,7 +20,7 @@ def calculate_years_to_zero_profit(metrics_file, costs_file, output_file):
     base_elec_cost = df_costs['electricity_cost'].iloc[0]
     
     # Calculate the price increase factor for each year compared to the base year
-    df_costs['add_co2_factor'] = df_costs['co2_cost'] - base_co2_cost
+    df_costs['add_co2_factor'] = df_costs['co2_cost_social'] - base_co2_cost
     df_costs['add_water_factor'] = df_costs['water_cost'] - base_water_cost
     df_costs['add_elec_factor'] = df_costs['electricity_cost'] - base_elec_cost
     
@@ -65,6 +65,12 @@ def calculate_years_to_zero_profit(metrics_file, costs_file, output_file):
         add_co2_cost = co2_usage * df_costs['add_co2_factor']
         add_water_cost = water_usage * df_costs['add_water_factor']
         add_elec_cost = elec_usage * df_costs['add_elec_factor']
+
+        if ticker == "AAPL":
+            print("showing apple value")
+            print(f"co2 cost mrd: {add_co2_cost.iloc[-1] / 1000000000}")
+            print(f"co2 cost mrd: {add_co2_cost.iloc[-1] / 1000000000}")
+            print(f"co2 cost mrd: {add_co2_cost.iloc[-1] / 1000000000}")
         
         # Total combined impact
         add_total_cost = add_co2_cost + add_water_cost + add_elec_cost
@@ -102,6 +108,6 @@ def calculate_years_to_zero_profit(metrics_file, costs_file, output_file):
 if __name__ == "__main__":
     calculate_years_to_zero_profit(
         metrics_file='sp500_metrics.csv',
-        costs_file='projected_resource_costs.csv',
+        costs_file='projected_resource_costs2.csv',
         output_file='profit_impact_years.csv'
     )

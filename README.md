@@ -25,13 +25,13 @@ This writes `sp500_metrics.csv`, which can be reviewed before replacing or other
 
 ## Methodology
 
-Let company \(i\) have current profit \(P_i\) and annual usage \(u_{i,r}\) of resource \(r\), where \(r\) is CO₂, water, or electricity. Let \(c_r(t)\) be the projected unit price in year \(t\), and let the base year be \(b=2026\). The additional annual cost in year \(t\) is
+Let company $i$ have current profit $P_i$ and annual usage $u_{i,r}$ of resource $r$, where $r$ is CO₂, water, or electricity. Let $c_r(t)$ be the projected unit price in year $t$, and let the base year be $b=2026$. The additional annual cost in year $t$ is
 
 $$
 \Delta C_i(t)=\sum_r u_{i,r}\bigl(c_r(t)-c_r(b)\bigr),
 $$
 
-so projected profit after the price increase is \(P_i(t)=P_i-\Delta C_i(t)\). The reported sustainability horizon is
+so projected profit after the price increase is $P_i(t)=P_i-\Delta C_i(t)$. The reported sustainability horizon is
 
 $$
 \tau_i=\min\{t-b\mid \Delta C_i(t)\ge P_i\}.
