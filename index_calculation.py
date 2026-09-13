@@ -108,6 +108,6 @@ def calculate_years_to_zero_profit(metrics_file, costs_file, output_file):
 if __name__ == "__main__":
     calculate_years_to_zero_profit(
         metrics_file='sp500_metrics.csv',
-        costs_file='projected_resource_costs2.csv',
+        costs_file='projected_resource_costs.csv',
         output_file='profit_impact_years.csv'
     )
