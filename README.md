@@ -1,6 +1,6 @@
 # Sustainability Profit Horizon
 
-Sustainability is defined as the capacity to maintain, support, or continue a process or system over a long period of time. This hackathon project estimates how many years a company can absorb rising CO₂, water, and electricity prices before its current annual profit is fully consumed by the additional costs. Thus, the longer it can absorb these costs, the more sustainable it is.
+Sustainability is the ability of a system to continue over time; a perfectly sustainable company could continue operating indefinitely by definition. We turn that idea into a measurable score by asking how many years a company can absorb projected increases in the costs of freshwater, electricity, and CO₂ emissions. Using research-based cost projections and each company's current resource use and profit, the score is the number of years until the additional annual costs consume its current annual profit. A larger score therefore represents a longer sustainability horizon.
 
 ## Run and reproduce
 
@@ -25,16 +25,27 @@ The script reads the company list from `sp500.csv` and writes the generated valu
 
 ## Methodology
 
-Let company $i$ have current profit $P_i$ and annual usage $u_{i,r}$ of resource $r$, where $r$ is CO₂, water, or electricity. Let $c_r(t)$ be the projected unit price in year $t$, and let the base year be $b=2026$. The additional annual cost in year $t$ is
+The method follows directly from the definition above. If sustainability is the ability to continue operating, then a natural measure is the length of time for which a company can withstand increasing resource costs. We use research-based projections of the unit costs of freshwater, electricity, and CO₂ emissions, and apply their increases to each company's present annual resource use. We then compare the resulting additional annual cost with the company's current annual profit.
+
+Formally, let $\mathcal{R}=\{\mathrm{CO_2},\mathrm{water},\mathrm{electricity}\}$ be the set of resources. For company $i$, let $P_i$ denote current annual profit and $u_{i,r}$ its annual use of resource $r\in\mathcal{R}$. Let $c_r(t)$ be the projected unit cost of resource $r$ in year $t$, and let the base year be $b=2026$. Holding resource use constant, the additional annual cost caused by price increases in year $t$ is
 
 $$
-\Delta C_i(t)=\sum_r u_{i,r}\bigl(c_r(t)-c_r(b)\bigr),
+\Delta C_i(t)=\sum_{r\in\mathcal{R}}u_{i,r}\bigl(c_r(t)-c_r(b)\bigr).
 $$
 
-so projected profit after the price increase is $P_i(t)=P_i-\Delta C_i(t)$. The reported sustainability horizon is
+The company's profit after this modeled cost increase is therefore
 
 $$
-\tau_i=\min\{t-b\mid \Delta C_i(t)\ge P_i\}.
+P_i(t)=P_i-\Delta C_i(t).
 $$
 
-The same calculation is also made for each resource separately. `> 150` means the company does not reach zero profit within the available 2026–2100 projections. The model is a stress-test index: it assumes constant profit and resource use, attributes no growth or mitigation, and counts only price increases above the base-year costs. Company data gathered by the extraction script may include model estimates when reported values are unavailable, so results should be treated as indicative rather than forecasts.
+Its sustainability horizon is the number of years from the base year until this modeled profit first reaches zero:
+
+$$
+\tau_i=\min\bigl\{t-b\mid P_i(t)\le 0\bigr\}
+=\min\bigl\{t-b\mid \Delta C_i(t)\ge P_i\bigr\}.
+$$
+
+The same calculation is also performed for each resource separately by retaining only that resource's term in the sum. If the threshold is not reached during the available projection period, the score is reported as greater than the final modeled horizon.
+
+This score is a comparative stress-test index, not a prediction of bankruptcy or literal cash exhaustion. It holds profit and resource use constant, includes only cost increases relative to the base year, and does not model growth, adaptation, substitution, or mitigation. Company metrics produced by the extraction script may also contain model estimates when reported values are unavailable. The results should therefore be interpreted as indicative sustainability horizons rather than financial forecasts.
